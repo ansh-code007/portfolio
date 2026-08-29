@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IIEST Shibpur — Indian Institute of Engineering Science and Technology</title>
+  <meta name="description" content="A modern redesign of the IIEST Shibpur university portal — notices, academics, departments and student services." />
+  <meta name="theme-color" content="#0a1228" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#060b1c',
+              900: '#0a1228',
+              850: '#0e1730',
+              800: '#131e3f',
+              700: '#1b294f',
+              600: '#24345f',
+            },
+            gold: {
+              200: '#f6e8b8',
+              300: '#f0d98a',
+              400: '#e5c463',
+              500: '#d4af37',
+              600: '#b8942a',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          keyframes: {
+            'fade-up': {
+              '0%': { opacity: '0', transform: 'translateY(16px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            'fade-up': 'fade-up 0.6s ease-out both',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* Thin custom scrollbar to match navy theme */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #060b1c; }
+    ::-webkit-scrollbar-thumb { background: #1b294f; border-radius: 9999px; border: 2px solid #060b1c; }
+    ::-webkit-scrollbar-thumb:hover { background: #24345f; }
+  </style>
+</head>
+<body class="bg-navy-900 text-slate-300 font-sans antialiased selection:bg-gold-500/30 selection:text-gold-200">
+
+  <!-- ============================= NAVBAR ============================= -->
+  <header class="sticky top-0 z-50 border-b border-gold-500/10 bg-navy-900/70 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <!-- Branding -->
+      <a href="#" class="flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-500/10 ring-1 ring-gold-500/30">
+          <!-- Crest / academic cap SVG -->
+          <svg class="h-6 w-6 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+            <path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5" />
+            <path d="M22 10v4" />
+          </svg>
+        </span>
+        <span class="leading-tight">
+          <span class="block text-sm font-extrabold tracking-tight text-white sm:text-base">IIEST Shibpur</span>
+          <span class="block text-[11px] font-medium text-slate-500">Engineering Science &amp; Technology</span>
+        </span>
+      </a>
+
+      <!-- Primary links -->
+      <ul class="hidden items-center gap-1 lg:flex">
+        <li><a href="#home" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-navy-700/60 hover:text-white">Home</a></li>
+        <li><a href="#notices" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-navy-700/60 hover:text-white">Notices</a></li>
+        <li><a href="#departments" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-navy-700/60 hover:text-white">Departments</a></li>
+        <li><a href="#academics" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-navy-700/60 hover:text-white">Academics</a></li>
+        <li><a href="#research" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-navy-700/60 hover:text-white">Research</a></li>
+      </ul>
+
+      <!-- Quick portal links -->
+      <div class="flex items-center gap-2">
+        <a href="#" class="hidden rounded-lg px-3 py-2 text-sm font-semibold text-slate-300 transition hover:text-gold-400 sm:inline-flex">Login</a>
+        <a href="#" class="inline-flex items-center gap-2 rounded-lg bg-gold-500 px-3.5 py-2 text-sm font-semibold text-navy-950 shadow-lg shadow-gold-500/20 transition hover:bg-gold-400">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="hidden sm:inline">Student Portal</span>
+          <span class="sm:hidden">Portal</span>
+        </a>
+        <!-- Mobile menu toggle -->
+        <button id="menuBtn" type="button" aria-label="Toggle navigation" class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-300 transition hover:bg-navy-700/60 lg:hidden">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden border-t border-gold-500/10 bg-navy-900/95 px-4 py-3 lg:hidden">
+      <ul class="flex flex-col gap-1">
+        <li><a href="#home" class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 hover:bg-navy-700/60 hover:text-white">Home</a></li>
+        <li><a href="#notices" class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 hover:bg-navy-700/60 hover:text-white">Notices</a></li>
+        <li><a href="#departments" class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 hover:bg-navy-700/60 hover:text-white">Departments</a></li>
+        <li><a href="#academics" class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 hover:bg-navy-700/60 hover:text-white">Academics</a></li>
+        <li><a href="#research" class="block rounded-lg px-3 py-2 text-sm font-medium text-slate-300 hover:bg-navy-700/60 hover:text-white">Research</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================= HERO ============================= -->
+    <section id="home" class="relative overflow-hidden">
+      <!-- Ambient glow -->
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute left-1/2 top-[-6rem] h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-gold-500/10 blur-3xl"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#131e3f_1px,transparent_1px),linear-gradient(to_bottom,#131e3f_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"></div>
+      </div>
+
+      <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div class="mx-auto max-w-3xl text-center">
+          <span class="inline-flex animate-fade-up items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-xs font-semibold text-gold-300">
+            <span class="h-1.5 w-1.5 rounded-full bg-gold-400"></span>
+            Est. 1856 · Institute of National Importance
+          </span>
+
+          <h1 class="mt-6 animate-fade-up text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Shaping engineers who
+            <span class="bg-gradient-to-r from-gold-400 to-gold-200 bg-clip-text text-transparent">build the future</span>
+          </h1>
+
+          <p class="mx-auto mt-5 max-w-2xl animate-fade-up text-pretty text-base leading-relaxed text-slate-400 sm:text-lg">
+            The Indian Institute of Engineering Science and Technology, Shibpur — a legacy of excellence in engineering, science, architecture and management education on the banks of the Ganges.
+          </p>
+
+          <!-- Notice search -->
+          <form class="mx-auto mt-8 flex max-w-xl animate-fade-up items-center gap-2 rounded-2xl border border-navy-700 bg-navy-850/80 p-2 shadow-2xl shadow-black/40 backdrop-blur focus-within:border-gold-500/50" role="search" onsubmit="return false;">
+            <span class="pl-2 text-slate-500">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <label for="notice-search" class="sr-only">Search notices and announcements</label>
+            <input id="notice-search" type="search" placeholder="Search notices, results, circulars…" class="w-full bg-transparent px-1 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none" />
+            <button type="submit" class="shrink-0 rounded-xl bg-gold-500 px-4 py-2 text-sm font-semibold text-navy-950 transition hover:bg-gold-400">Search</button>
+          </form>
+
+          <!-- Quick actions -->
+          <div class="mt-6 flex animate-fade-up flex-wrap items-center justify-center gap-3">
+            <a href="#" class="inline-flex items-center gap-2 rounded-xl border border-navy-700 bg-navy-850 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-gold-500/50 hover:bg-navy-800">
+              <svg class="h-4 w-4 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Student Portal
+            </a>
+            <a href="#academics" class="inline-flex items-center gap-2 rounded-xl border border-navy-700 bg-navy-850 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-gold-500/50 hover:bg-navy-800">
+              <svg class="h-4 w-4 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+              Academics
+            </a>
+          </div>
+
+          <!-- Stat strip -->
+          <dl class="mx-auto mt-14 grid max-w-2xl animate-fade-up grid-cols-2 gap-4 sm:grid-cols-4">
+            <div class="rounded-xl border border-navy-700 bg-navy-850/60 px-4 py-3">
+              <dt class="text-xs font-medium text-slate-500">Founded</dt>
+              <dd class="mt-1 text-xl font-bold text-white">1856</dd>
+            </div>
+            <div class="rounded-xl border border-navy-700 bg-navy-850/60 px-4 py-3">
+              <dt class="text-xs font-medium text-slate-500">Departments</dt>
+              <dd class="mt-1 text-xl font-bold text-white">20+</dd>
+            </div>
+            <div class="rounded-xl border border-navy-700 bg-navy-850/60 px-4 py-3">
+              <dt class="text-xs font-medium text-slate-500">Students</dt>
+              <dd class="mt-1 text-xl font-bold text-white">4,500+</dd>
+            </div>
+            <div class="rounded-xl border border-navy-700 bg-navy-850/60 px-4 py-3">
+              <dt class="text-xs font-medium text-slate-500">Acre Campus</dt>
+              <dd class="mt-1 text-xl font-bold text-white">120</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= NOTICE DASHBOARD ============================= -->
+    <section id="notices" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight text-white sm:text-3xl">Notice Board</h2>
+          <p class="mt-2 text-sm text-slate-400">Latest announcements, circulars and results from the institute.</p>
+        </div>
+        <a href="#" class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 transition hover:text-gold-300">
+          View all archives
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mt-8 flex flex-wrap gap-2 border-b border-navy-700 pb-px" role="tablist" aria-label="Notice categories">
+        <button data-tab="all" class="notice-tab rounded-t-lg border-b-2 border-gold-500 px-4 py-2.5 text-sm font-semibold text-white" role="tab" aria-selected="true">All</button>
+        <button data-tab="academics" class="notice-tab rounded-t-lg border-b-2 border-transparent px-4 py-2.5 text-sm font-semibold text-slate-400 transition hover:text-white" role="tab" aria-selected="false">Academics</button>
+        <button data-tab="exams" class="notice-tab rounded-t-lg border-b-2 border-transparent px-4 py-2.5 text-sm font-semibold text-slate-400 transition hover:text-white" role="tab" aria-selected="false">Exams</button>
+        <button data-tab="hostels" class="notice-tab rounded-t-lg border-b-2 border-transparent px-4 py-2.5 text-sm font-semibold text-slate-400 transition hover:text-white" role="tab" aria-selected="false">Hostels</button>
+      </div>
+
+      <!-- Notice list -->
+      <ul id="noticeList" class="mt-6 space-y-3">
+        <!-- Academics -->
+        <li data-cat="academics" class="notice-item group flex items-start gap-4 rounded-xl border border-navy-700 bg-navy-850 p-4 transition hover:border-gold-500/40 hover:bg-navy-800/60">
+          <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold-500/10 text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-gold-500/10 px-2 py-0.5 text-[11px] font-semibold text-gold-300">Academics</span>
+              <span class="rounded-full bg-rose-500/10 px-2 py-0.5 text-[11px] font-semibold text-rose-300">New</span>
+            </div>
+            <h3 class="mt-1.5 truncate text-sm font-semibold text-white group-hover:text-gold-300">Autumn 2026 semester registration now open for all programmes</h3>
+            <p class="mt-0.5 text-xs text-slate-500">Published 28 Aug 2026 · Academic Section</p>
+          </div>
+          <span class="text-slate-600 transition group-hover:translate-x-0.5 group-hover:text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </li>
+
+        <!-- Exams -->
+        <li data-cat="exams" class="notice-item group flex items-start gap-4 rounded-xl border border-navy-700 bg-navy-850 p-4 transition hover:border-gold-500/40 hover:bg-navy-800/60">
+          <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-300">Exams</span>
+              <span class="rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-300">Urgent</span>
+            </div>
+            <h3 class="mt-1.5 truncate text-sm font-semibold text-white group-hover:text-gold-300">End-semester examination schedule released — download admit cards</h3>
+            <p class="mt-0.5 text-xs text-slate-500">Published 26 Aug 2026 · Examination Cell</p>
+          </div>
+          <span class="text-slate-600 transition group-hover:translate-x-0.5 group-hover:text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </li>
+
+        <!-- Hostels -->
+        <li data-cat="hostels" class="notice-item group flex items-start gap-4 rounded-xl border border-navy-700 bg-navy-850 p-4 transition hover:border-gold-500/40 hover:bg-navy-800/60">
+          <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-sky-500/10 px-2 py-0.5 text-[11px] font-semibold text-sky-300">Hostels</span>
+              <span class="rounded-full bg-navy-600/60 px-2 py-0.5 text-[11px] font-semibold text-slate-300">Notice</span>
+            </div>
+            <h3 class="mt-1.5 truncate text-sm font-semibold text-white group-hover:text-gold-300">Hall of Residence allotment for first-year students — reporting dates</h3>
+            <p class="mt-0.5 text-xs text-slate-500">Published 24 Aug 2026 · Dean of Students</p>
+          </div>
+          <span class="text-slate-600 transition group-hover:translate-x-0.5 group-hover:text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </li>
+
+        <!-- Academics 2 -->
+        <li data-cat="academics" class="notice-item group flex items-start gap-4 rounded-xl border border-navy-700 bg-navy-850 p-4 transition hover:border-gold-500/40 hover:bg-navy-800/60">
+          <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold-500/10 text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-gold-500/10 px-2 py-0.5 text-[11px] font-semibold text-gold-300">Academics</span>
+            </div>
+            <h3 class="mt-1.5 truncate text-sm font-semibold text-white group-hover:text-gold-300">Guest lecture series on Sustainable Infrastructure — open to all departments</h3>
+            <p class="mt-0.5 text-xs text-slate-500">Published 21 Aug 2026 · Civil Engineering</p>
+          </div>
+          <span class="text-slate-600 transition group-hover:translate-x-0.5 group-hover:text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </li>
+
+        <!-- Exams 2 -->
+        <li data-cat="exams" class="notice-item group flex items-start gap-4 rounded-xl border border-navy-700 bg-navy-850 p-4 transition hover:border-gold-500/40 hover:bg-navy-800/60">
+          <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </span>
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-300">Exams</span>
+              <span class="rounded-full bg-gold-500/10 px-2 py-0.5 text-[11px] font-semibold text-gold-300">Result</span>
+            </div>
+            <h3 class="mt-1.5 truncate text-sm font-semibold text-white group-hover:text-gold-300">Spring 2026 grade cards published on the student portal</h3>
+            <p class="mt-0.5 text-xs text-slate-500">Published 18 Aug 2026 · Examination Cell</p>
+          </div>
+          <span class="text-slate-600 transition group-hover:translate-x-0.5 group-hover:text-gold-400">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </li>
+      </ul>
+
+      <p id="noticeEmpty" class="hidden rounded-xl border border-dashed border-navy-700 bg-navy-850/40 py-10 text-center text-sm text-slate-500">No notices in this category right now.</p>
+    </section>
+
+    <!-- ============================= DEPARTMENTS ============================= -->
+    <section id="departments" class="border-t border-gold-500/10 bg-navy-950">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="text-2xl font-bold tracking-tight text-white sm:text-3xl">Departments</h2>
+          <p class="mt-2 text-sm text-slate-400">Explore our engineering and science departments driving research and innovation.</p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- CSE -->
+          <a href="#" class="group relative overflow-hidden rounded-2xl border border-navy-700 bg-navy-850 p-6 transition duration-300 hover:-translate-y-1 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10">
+            <div class="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gold-500/10 opacity-0 blur-2xl transition group-hover:opacity-100"></div>
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-400 ring-1 ring-gold-500/20">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </span>
+            <h3 class="mt-4 text-lg font-bold text-white">Computer Science</h3>
+            <p class="mt-1 text-sm text-slate-500">AI, systems, theory &amp; data-driven computing.</p>
+            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 opacity-0 transition group-hover:opacity-100">
+              Explore CSE
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+
+          <!-- IT -->
+          <a href="#" class="group relative overflow-hidden rounded-2xl border border-navy-700 bg-navy-850 p-6 transition duration-300 hover:-translate-y-1 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10">
+            <div class="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gold-500/10 opacity-0 blur-2xl transition group-hover:opacity-100"></div>
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-400 ring-1 ring-gold-500/20">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+            </span>
+            <h3 class="mt-4 text-lg font-bold text-white">Information Technology</h3>
+            <p class="mt-1 text-sm text-slate-500">Networks, security &amp; scalable software.</p>
+            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 opacity-0 transition group-hover:opacity-100">
+              Explore IT
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+
+          <!-- EE -->
+          <a href="#" class="group relative overflow-hidden rounded-2xl border border-navy-700 bg-navy-850 p-6 transition duration-300 hover:-translate-y-1 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10">
+            <div class="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gold-500/10 opacity-0 blur-2xl transition group-hover:opacity-100"></div>
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-400 ring-1 ring-gold-500/20">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
+            <h3 class="mt-4 text-lg font-bold text-white">Electrical Engineering</h3>
+            <p class="mt-1 text-sm text-slate-500">Power, control &amp; electrical systems.</p>
+            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 opacity-0 transition group-hover:opacity-100">
+              Explore EE
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+
+          <!-- ME -->
+          <a href="#" class="group relative overflow-hidden rounded-2xl border border-navy-700 bg-navy-850 p-6 transition duration-300 hover:-translate-y-1 hover:border-gold-500/50 hover:shadow-2xl hover:shadow-gold-500/10">
+            <div class="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gold-500/10 opacity-0 blur-2xl transition group-hover:opacity-100"></div>
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-500/10 text-gold-400 ring-1 ring-gold-500/20">
+              <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+            </span>
+            <h3 class="mt-4 text-lg font-bold text-white">Mechanical Engineering</h3>
+            <p class="mt-1 text-sm text-slate-500">Design, thermal &amp; manufacturing sciences.</p>
+            <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold-400 opacity-0 transition group-hover:opacity-100">
+              Explore ME
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= ACADEMICS CTA ============================= -->
+    <section id="academics" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="relative overflow-hidden rounded-3xl border border-navy-700 bg-navy-850 px-6 py-12 sm:px-12">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-gold-500/10 blur-3xl"></div>
+        <div class="relative grid items-center gap-8 lg:grid-cols-2">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-white sm:text-3xl">Academics &amp; Programmes</h2>
+            <p class="mt-3 max-w-lg text-sm leading-relaxed text-slate-400">From undergraduate B.Tech to doctoral research, access curricula, academic calendars, and course catalogues — all in one place.</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#" class="rounded-xl bg-gold-500 px-5 py-2.5 text-sm font-semibold text-navy-950 transition hover:bg-gold-400">Browse programmes</a>
+              <a href="#" class="rounded-xl border border-navy-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-800">Academic calendar</a>
+            </div>
+          </div>
+          <ul class="grid gap-3 sm:grid-cols-2">
+            <li class="rounded-xl border border-navy-700 bg-navy-950/50 p-4 text-sm font-medium text-slate-300">Undergraduate (B.Tech / B.Arch)</li>
+            <li class="rounded-xl border border-navy-700 bg-navy-950/50 p-4 text-sm font-medium text-slate-300">Postgraduate (M.Tech / M.Sc)</li>
+            <li class="rounded-xl border border-navy-700 bg-navy-950/50 p-4 text-sm font-medium text-slate-300">Doctoral (Ph.D)</li>
+            <li class="rounded-xl border border-navy-700 bg-navy-950/50 p-4 text-sm font-medium text-slate-300">Continuing Education</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer id="research" class="border-t border-gold-500/10 bg-navy-950">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div class="grid gap-8 md:grid-cols-4">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-500/10 ring-1 ring-gold-500/30">
+              <svg class="h-6 w-6 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+            </span>
+            <span class="text-sm font-extrabold text-white">IIEST Shibpur</span>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-slate-500">Botanic Garden, Howrah, West Bengal 711103, India.</p>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white">Quick Links</h3>
+          <ul class="mt-4 space-y-2 text-sm text-slate-400">
+            <li><a href="#notices" class="transition hover:text-gold-400">Notices</a></li>
+            <li><a href="#departments" class="transition hover:text-gold-400">Departments</a></li>
+            <li><a href="#academics" class="transition hover:text-gold-400">Academics</a></li>
+            <li><a href="#" class="transition hover:text-gold-400">Admissions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white">Portals</h3>
+          <ul class="mt-4 space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="transition hover:text-gold-400">Student Portal</a></li>
+            <li><a href="#" class="transition hover:text-gold-400">Faculty Login</a></li>
+            <li><a href="#" class="transition hover:text-gold-400">Alumni Network</a></li>
+            <li><a href="#" class="transition hover:text-gold-400">Library</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white">Contact</h3>
+          <ul class="mt-4 space-y-2 text-sm text-slate-400">
+            <li>+91 33 2668 4561</li>
+            <li>registrar@iiests.ac.in</li>
+          </ul>
+          <div class="mt-4 flex gap-3">
+            <a href="#" aria-label="Twitter" class="flex h-9 w-9 items-center justify-center rounded-lg border border-navy-700 text-slate-400 transition hover:border-gold-500/50 hover:text-gold-400">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.2h3.7l-8 9.1 9.4 12.4h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9 6.1-6.9Zm-1.3 19.3h2L6.5 3.3H4.4L17.6 20.5Z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="flex h-9 w-9 items-center justify-center rounded-lg border border-navy-700 text-slate-400 transition hover:border-gold-500/50 hover:text-gold-400">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5v-9h3v9ZM6.5 8.3a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5ZM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5V19h-3v-9h2.9v1.2h.04a3.2 3.2 0 0 1 2.9-1.6c3.1 0 3.7 2 3.7 4.7V19Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gold-500/10 pt-6 sm:flex-row">
+        <p class="text-xs text-slate-500">© 2026 IIEST Shibpur. All rights reserved.</p>
+        <p class="text-xs text-slate-500">A modern redesign concept · Not an official website.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    (function () {
+      var btn = document.getElementById('menuBtn');
+      var menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', function () {
+          menu.classList.toggle('hidden');
+        });
+        menu.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () { menu.classList.add('hidden'); });
+        });
+      }
+    })();
+
+    // Notice tab filtering
+    (function () {
+      var tabs = document.querySelectorAll('.notice-tab');
+      var items = document.querySelectorAll('.notice-item');
+      var empty = document.getElementById('noticeEmpty');
+
+      function setActive(clicked) {
+        tabs.forEach(function (t) {
+          var isActive = t === clicked;
+          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          t.classList.toggle('border-gold-500', isActive);
+          t.classList.toggle('text-white', isActive);
+          t.classList.toggle('border-transparent', !isActive);
+          t.classList.toggle('text-slate-400', !isActive);
+        });
+      }
+
+      function filter(cat) {
+        var visible = 0;
+        items.forEach(function (item) {
+          var show = cat === 'all' || item.getAttribute('data-cat') === cat;
+          item.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+        if (empty) empty.classList.toggle('hidden', visible !== 0);
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          setActive(tab);
+          filter(tab.getAttribute('data-tab'));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

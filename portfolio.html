@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-zinc-950">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ansh Jain — IT Student & UI/UX Enthusiast</title>
+  <meta name="description" content="Portfolio of Ansh Jain, IT Student at IIEST Shibpur passionate about UI/UX design and frontend development." />
+  <meta name="theme-color" content="#09090b" />
+
+  <!-- Mark that JS is active so reveal-on-scroll only hides content when it can be un-hidden -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Tailwind CSS (Play CDN) for a truly standalone file -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            accent: {
+              DEFAULT: '#10b981', // emerald-500
+              violet: '#8b5cf6',  // violet-500
+            },
+          },
+          keyframes: {
+            floaty: {
+              '0%,100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(16px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            floaty: 'floaty 6s ease-in-out infinite',
+            fadeUp: 'fadeUp 0.7s ease-out forwards',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #09090b; }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+    /* Glow utility */
+    .glow-emerald { box-shadow: 0 0 0 1px rgba(16,185,129,0.35), 0 8px 40px -12px rgba(16,185,129,0.5); }
+    .glow-violet { box-shadow: 0 0 0 1px rgba(139,92,246,0.35), 0 8px 40px -12px rgba(139,92,246,0.5); }
+
+    /* Grid backdrop */
+    .grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(39,39,42,0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(39,39,42,0.5) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+    }
+
+    /* Reveal-on-scroll starting state.
+       Only hidden when JS is active (html.js). Without JS, everything stays visible. */
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .js .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+      .animate-floaty { animation: none; }
+    }
+
+  /* Base state for animated elements (hidden & shifted down) */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  /* Revealed state when element enters viewport */
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-100">
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="fixed top-0 inset-x-0 z-50 border-b border-zinc-800/60 bg-zinc-950/70 backdrop-blur-lg">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <a href="#home" class="group flex items-center gap-2 font-mono text-sm font-semibold tracking-tight">
+        <span class="grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/30 transition group-hover:bg-emerald-500/20">AJ</span>
+        <span class="text-zinc-200">ansh<span class="text-emerald-400">.jain</span></span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+        <li><a href="#skills" class="transition hover:text-emerald-400">Skills</a></li>
+        <li><a href="#projects" class="transition hover:text-emerald-400">Projects</a></li>
+        <li><a href="#about" class="transition hover:text-emerald-400">About</a></li>
+        <li><a href="#contact" class="transition hover:text-emerald-400">Contact</a></li>
+      </ul>
+
+      <a href="#contact" class="hidden rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-300 transition hover:bg-emerald-500/20 hover:glow-emerald md:inline-block">
+        Let&apos;s talk
+      </a>
+
+      <!-- Mobile toggle -->
+      <button id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu"
+        class="grid h-10 w-10 place-items-center rounded-lg border border-zinc-800 text-zinc-300 transition hover:border-emerald-500/50 hover:text-emerald-400 md:hidden">
+        <svg id="iconOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="iconClose" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden border-t border-zinc-800/60 bg-zinc-950/95 px-6 py-4 md:hidden">
+      <ul class="flex flex-col gap-1 text-zinc-300">
+        <li><a href="#skills" class="mobile-link block rounded-lg px-3 py-2 transition hover:bg-zinc-900 hover:text-emerald-400">Skills</a></li>
+        <li><a href="#projects" class="mobile-link block rounded-lg px-3 py-2 transition hover:bg-zinc-900 hover:text-emerald-400">Projects</a></li>
+        <li><a href="#about" class="mobile-link block rounded-lg px-3 py-2 transition hover:bg-zinc-900 hover:text-emerald-400">About</a></li>
+        <li><a href="#contact" class="mobile-link block rounded-lg px-3 py-2 transition hover:bg-zinc-900 hover:text-emerald-400">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="home">
+    <!-- ===== HERO ===== -->
+    <section class="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+      <div class="grid-bg pointer-events-none absolute inset-0"></div>
+      <div class="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-emerald-500/20 blur-[120px]"></div>
+      <div class="pointer-events-none absolute top-40 right-10 h-56 w-56 rounded-full bg-violet-500/20 blur-[120px]"></div>
+
+      <div class="relative mx-auto max-w-6xl px-6 text-center">
+        <div class="reveal mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs text-zinc-400">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          Available for internships &amp; collaborations
+        </div>
+
+        <h1 class="reveal mx-auto max-w-4xl text-balance text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
+          Hi, I&apos;m <span class="bg-gradient-to-r from-emerald-400 via-emerald-300 to-violet-400 bg-clip-text text-transparent">Ansh Jain</span>
+        </h1>
+        <p class="reveal mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-zinc-400">
+          IT Student at <span class="font-medium text-zinc-200">IIEST Shibpur</span> &amp; UI/UX Enthusiast — crafting intuitive interfaces where clean frontend code meets thoughtful design.
+        </p>
+
+        <div class="reveal mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="#projects" class="group inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 font-semibold text-zinc-950 transition hover:bg-emerald-400 hover:glow-emerald">
+            Explore Projects
+            <svg class="transition group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/50 px-6 py-3 font-semibold text-zinc-100 transition hover:border-violet-500/60 hover:text-violet-300 hover:glow-violet">
+            Get in Touch
+          </a>
+        </div>
+
+        <!-- Socials -->
+        <div class="reveal mt-12 flex items-center justify-center gap-4">
+          <a href="https://github.com/ansh-code007" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            class="group grid h-11 w-11 place-items-center rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition hover:-translate-y-1 hover:border-emerald-500/50 hover:text-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.42 7.86 10.95.58.11.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A10.53 10.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/ansh-jain-7a5735431/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            class="group grid h-11 w-11 place-items-center rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition hover:-translate-y-1 hover:border-emerald-500/50 hover:text-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.53C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.74V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+          <a href="mailto:anshjain5421l@gmail.com" aria-label="Email"
+            class="group grid h-11 w-11 place-items-center rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition hover:-translate-y-1 hover:border-emerald-500/50 hover:text-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-20">
+      <div class="reveal mb-12 text-center">
+        <p class="font-mono text-sm text-emerald-400">// tech stack</p>
+        <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Skills &amp; Tooling</h2>
+        <p class="mx-auto mt-3 max-w-xl text-pretty text-zinc-400">The core technologies I use to build clean, responsive, and user-focused web experiences.</p>
+      </div>
+
+      <div id="skillGrid" class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5"></div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-20">
+      <div class="reveal mb-12 text-center">
+        <p class="font-mono text-sm text-violet-400">// selected work</p>
+        <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Featured Projects</h2>
+        <p class="mx-auto mt-3 max-w-xl text-pretty text-zinc-400">A showcase of interface designs and frontend prototypes I&apos;ve been building.</p>
+      </div>
+
+      <div id="projectGrid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-20">
+      <div class="reveal relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-900/80 to-zinc-950 p-8 sm:p-12">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl"></div>
+        <div class="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+          <div>
+            <p class="font-mono text-sm text-emerald-400">// about &amp; philosophy</p>
+            <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Bridging Code &amp; Design</h2>
+            <p class="mt-5 text-pretty leading-relaxed text-zinc-400">
+              I&apos;m an IT student at IIEST Shibpur who believes great products live at the intersection of
+              <span class="text-emerald-300">functional code</span> and <span class="text-violet-300">intuitive design</span>.
+              I care about the details — spacing, motion, hierarchy — because those are what make an interface feel effortless.
+            </p>
+            <p class="mt-4 text-pretty leading-relaxed text-zinc-400">
+              Whether I&apos;m wireframing a flow or writing semantic HTML and clean JavaScript, my goal is the same:
+              build experiences that are accessible, responsive, and genuinely enjoyable to use.
+            </p>
+          </div>
+          <ul class="grid grid-cols-2 gap-4">
+            <li class="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5 text-center transition hover:border-emerald-500/40 hover:glow-emerald">
+              <p class="text-3xl font-bold text-emerald-400">10+</p>
+              <p class="mt-1 text-xs text-zinc-400">UI Concepts</p>
+            </li>
+            <li class="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5 text-center transition hover:border-violet-500/40 hover:glow-violet">
+              <p class="text-3xl font-bold text-violet-400">∞</p>
+              <p class="mt-1 text-xs text-zinc-400">Curiosity</p>
+            </li>
+            <li class="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5 text-center transition hover:border-emerald-500/40 hover:glow-emerald">
+              <p class="text-3xl font-bold text-emerald-400">IIEST</p>
+              <p class="mt-1 text-xs text-zinc-400">Shibpur</p>
+            </li>
+            <li class="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5 text-center transition hover:border-violet-500/40 hover:glow-violet">
+              <p class="text-3xl font-bold text-violet-400">UX</p>
+              <p class="mt-1 text-xs text-zinc-400">First Mindset</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="mx-auto max-w-6xl scroll-mt-24 px-6 py-20">
+      <div class="reveal mb-12 text-center">
+        <p class="font-mono text-sm text-emerald-400">// get in touch</p>
+        <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Let&apos;s Build Something</h2>
+        <p class="mx-auto mt-3 max-w-xl text-pretty text-zinc-400">Have an idea, an opportunity, or just want to say hi? Drop me a message.</p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+        <!-- Contact info -->
+        <div class="reveal flex flex-col gap-4">
+          <a href="mailto:anshjain5421l@gmail.com" class="group flex items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 transition hover:border-emerald-500/50 hover:glow-emerald">
+            <span class="grid h-11 w-11 place-items-center rounded-xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            </span>
+            <span>
+              <span class="block text-xs text-zinc-500">Email</span>
+              <span class="block font-medium text-zinc-100 group-hover:text-emerald-300">anshjain5421l@gmail.com</span>
+            </span>
+          </a>
+          <div class="flex items-center gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
+            <span class="grid h-11 w-11 place-items-center rounded-xl bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/30">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <span>
+              <span class="block text-xs text-zinc-500">Location</span>
+              <span class="block font-medium text-zinc-100">IIEST Shibpur, India</span>
+            </span>
+          </div>
+          <div class="flex gap-3">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="grid h-11 flex-1 place-items-center rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition hover:border-emerald-500/50 hover:text-emerald-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.42 7.86 10.95.58.11.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A10.53 10.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="grid h-11 flex-1 place-items-center rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-400 transition hover:border-emerald-500/50 hover:text-emerald-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.53C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.74V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <form id="contactForm" class="reveal rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 sm:p-8" novalidate>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="sm:col-span-1">
+              <label for="name" class="mb-1.5 block text-sm text-zinc-400">Name</label>
+              <input id="name" name="name" type="text" required autocomplete="name"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20"
+                placeholder="Your name" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="email" class="mb-1.5 block text-sm text-zinc-400">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email"
+                class="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20"
+                placeholder="you@example.com" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="mb-1.5 block text-sm text-zinc-400">Message</label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full resize-y rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:border-emerald-500/60 focus:ring-2 focus:ring-emerald-500/20"
+                placeholder="Tell me about your idea..."></textarea>
+            </div>
+          </div>
+          <div class="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
+            <p id="formNote" class="text-sm text-zinc-500" role="status" aria-live="polite">Opens your email client via mailto.</p>
+            <button type="submit" class="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-6 py-3 font-semibold text-zinc-950 transition hover:bg-emerald-400 hover:glow-emerald sm:w-auto">
+              Send Message
+              <svg class="transition group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-zinc-800/60 py-8">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-zinc-500 sm:flex-row">
+      <p>&copy; <span id="year"></span> Ansh Jain. Built with HTML, Tailwind &amp; JS.</p>
+      <p class="font-mono text-xs">Designed &amp; developed with <span class="text-emerald-400">care</span>.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Data ---------- */
+      const skills = [
+        { name: 'HTML5', tag: '&lt;/&gt;', tone: 'emerald' },
+        { name: 'CSS3', tag: '{ }', tone: 'violet' },
+        { name: 'JavaScript', tag: 'ES6+', tone: 'emerald' },
+        { name: 'UI/UX Wireframing', tag: '✎', tone: 'violet' },
+        { name: 'Tailwind CSS', tag: '~', tone: 'emerald' },
+      ];
+
+      const projects = [
+        {
+          title: "IIEST Campus Hub UI Redesign",
+          desc: "A conceptual visual overhaul focusing on dark mode ergonomics, modern visual hierarchy, and intuitive navigation.",
+          stack: ["Figma", "UI/UX", "Wireframing"],
+          tone: "violet",
+          status: "Design Case Study",
+          demo:"./redesigned-website.html",
+          github: "#"
+        },
+        {
+          title: "Personal Developer Portfolio",
+          desc: "A sleek single-page web application featuring Tailwind micro-interactions, custom tooltips, and scroll animations.",
+          stack: ["HTML5", "Tailwind CSS", "JavaScript"],
+          tone: "emerald",
+          status: "Completed",
+          demo: "#",
+          github: "#"
+        },
+        {
+          title: "AI Hackathon Team Finder (Upcoming)",
+          desc: "A smart matching interface designed to help students connect with team members based on complementary skill sets.",
+          stack: ["Tailwind CSS", "JavaScript", "UI Design"],
+          tone: "violet",
+          status: "In Progress",
+          demo: "#",
+          github: "#"
+        },
+      ];
+
+      const toneMap = {
+        emerald: {
+          badge: 'bg-emerald-500/10 text-emerald-300 ring-emerald-500/30',
+          hover: 'hover:border-emerald-500/50 hover:glow-emerald',
+          text: 'group-hover:text-emerald-400',
+        },
+        violet: {
+          badge: 'bg-violet-500/10 text-violet-300 ring-violet-500/30',
+          hover: 'hover:border-violet-500/50 hover:glow-violet',
+          text: 'group-hover:text-violet-400',
+        },
+      };
+
+      /* ---------- Render skills ---------- */
+      const skillGrid = document.getElementById('skillGrid');
+      skills.forEach(function (s) {
+        const t = toneMap[s.tone];
+        const el = document.createElement('div');
+        el.className =
+          'reveal group flex cursor-default flex-col items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 text-center transition duration-300 hover:-translate-y-1 ' + t.hover;
+        el.innerHTML =
+          '<span class="grid h-12 w-12 place-items-center rounded-xl font-mono text-sm ring-1 ' + t.badge + '">' + s.tag + '</span>' +
+          '<span class="text-sm font-medium text-zinc-300 ' + t.text + '">' + s.name + '</span>';
+        skillGrid.appendChild(el);
+      });
+
+      /* ---------- Render projects ---------- */
+      const projectGrid = document.getElementById('projectGrid');
+      projects.forEach(function (p) {
+        const t = toneMap[p.tone];
+        const badges = p.stack
+          .map(function (s) {
+            return '<span class="rounded-md px-2.5 py-1 text-xs font-medium ring-1 ' + t.badge + '">' + s + '</span>';
+          })
+          .join('');
+        const card = document.createElement('article');
+        card.className =
+          'reveal group flex flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 transition duration-300 hover:-translate-y-1 ' + t.hover;
+        card.innerHTML =
+          '<div class="relative h-40 overflow-hidden bg-gradient-to-br from-zinc-800/60 to-zinc-950">' +
+            '<div class="grid-bg absolute inset-0 opacity-60"></div>' +
+            '<div class="absolute inset-0 grid place-items-center">' +
+              '<span class="font-mono text-4xl text-zinc-700 transition ' + t.text + '">&lt;/&gt;</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex flex-1 flex-col p-6">' +
+            '<h3 class="text-lg font-semibold text-zinc-100 ' + t.text + '">' + p.title + '</h3>' +
+            '<p class="mt-2 flex-1 text-sm leading-relaxed text-zinc-400">' + p.desc + '</p>' +
+            '<div class="mt-4 flex flex-wrap gap-2">' + badges + '</div>' +
+            '<div class="mt-5 flex gap-3">' +
+              '<a href="' + p.demo + '" class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-950 transition hover:bg-white">Live Demo</a>' +
+              '<a href="' + p.github + '" class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-2 text-sm font-medium text-zinc-300 transition hover:border-zinc-500 hover:text-zinc-100">Source Code</a>' +
+            '</div>' +
+          '</div>';
+        projectGrid.appendChild(card);
+      });
+
+      /* ---------- Mobile menu toggle ---------- */
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const iconOpen = document.getElementById('iconOpen');
+      const iconClose = document.getElementById('iconClose');
+
+      function closeMenu() {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+      function toggleMenu() {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        if (isHidden) {
+          mobileMenu.classList.remove('hidden');
+          iconOpen.classList.add('hidden');
+          iconClose.classList.remove('hidden');
+          menuBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          closeMenu();
+        }
+      }
+      menuBtn.addEventListener('click', toggleMenu);
+      document.querySelectorAll('.mobile-link').forEach(function (a) {
+        a.addEventListener('click', closeMenu);
+      });
+
+      /* ---------- Contact form -> mailto ---------- */
+      const form = document.getElementById('contactForm');
+      const note = document.getElementById('formNote');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !message) {
+          note.textContent = 'Please fill in all fields before sending.';
+          note.className = 'text-sm text-violet-400';
+          return;
+        }
+
+        const subject = encodeURIComponent('Portfolio inquiry from ' + name);
+        const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+        window.location.href = 'mailto:anshjain5421l@gmail.com?subject=' + subject + '&body=' + body;
+
+        note.textContent = 'Opening your email client...';
+        note.className = 'text-sm text-emerald-400';
+      });
+
+      /* ---------- Reveal on scroll ---------- */
+      const revealEls = document.querySelectorAll('.reveal');
+      function revealAll() {
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+      }
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        revealEls.forEach(function (el) { io.observe(el); });
+        /* Failsafe: if anything hasn't revealed shortly after load, show it. */
+        window.setTimeout(revealAll, 1500);
+      } else {
+        revealAll();
+      }
+
+      /* ---------- Footer year ---------- */
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      /* ---------- Dynamic console greeting ---------- */
+      const currentHour = new Date().getHours();
+      let greeting = "Hi";
+      if (currentHour < 12) greeting = "Good morning";
+      else if (currentHour < 18) greeting = "Good afternoon";
+      else greeting = "Good evening";
+      console.log(greeting + ', Ansh! Portfolio loaded successfully.');
+    })();
+  </script>
+</body>
+</html>
